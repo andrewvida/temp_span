@@ -1,6 +1,13 @@
 class WeatherTrender
   TempLineRegex = /^\s*\d+\.?\s+/
 
+
+  def output_smallest_spread(weather_data)
+    raw_data = parse(weather_data)
+    daily_data = monthly_weather_data(raw_data)
+    small_message_output(smallest_spread(daily_data))
+  end
+
   def parse(weather_data)
     File.readlines(weather_data)
   end
@@ -30,8 +37,13 @@ class WeatherTrender
         smallest_item << day
       end
     end
-    smallest_item
+    smallest_item.flatten
   end
+
+  def small_message_output(smallest_item)
+    "June #{smallest_item[0]} had the smallest temperature spread of #{smallest_item[1]} degrees."
+  end
+
 
   def largest_spread(monthly_info)
     largest_item = []
@@ -42,6 +54,6 @@ class WeatherTrender
         largest_item << day
       end
     end
-    largest_item
+    largest_item.flatten
   end
 end

@@ -37,6 +37,7 @@ describe WeatherTrender do
   }
 
   let(:daily_info) { "1  88    59" }
+  let(:temp_item) {["4",4]}
 
   describe "#parse" do
     it "should open and parse weather.dat" do
@@ -70,22 +71,29 @@ describe WeatherTrender do
 
   describe "#smallest_spread" do
     it "should calculate the day with the smallest temperature spread" do
-      weather_trender.smallest_spread(monthly_data).should == [["14", 2]]
+      weather_trender.smallest_spread(monthly_data).should == ["14", 2]
     end
 
-    it "should contain a single array" do
-      weather_trender.smallest_spread(monthly_data).size.should == 1
+    it "should contain a two elements" do
+      weather_trender.smallest_spread(monthly_data).size.should == 2
     end
 
   end
 
   describe "#largest_spread" do
     it "should calculate the day with the largest temperature spread" do
-      weather_trender.largest_spread(monthly_data).should == [["9", 54]]
+      weather_trender.largest_spread(monthly_data).should == ["9", 54]
     end
 
-    it "should contain a single array" do
-      weather_trender.largest_spread(monthly_data).size.should == 1
+    it "should contain a two elements" do
+      weather_trender.largest_spread(monthly_data).size.should == 2
     end
+  end
+
+  describe "#small_message_output" do
+    it "should output a sentence that describes the day and smallest temp spread" do
+      weather_trender.small_message_output(temp_item).should == "June 4 had the smallest temperature spread of 4 degrees."
+    end
+
   end
 end

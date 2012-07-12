@@ -16,7 +16,7 @@ class WeatherTrender
   end
 
   def calculate_daily_temp_diff daily_info
-    day, max_temp, min_temp =  temp_line.split
+    day, max_temp, min_temp =  daily_info.split
     temp_diff = (max_temp.to_i) - (min_temp.to_i)
     [day, temp_diff]
   end
@@ -25,21 +25,23 @@ class WeatherTrender
     smallest_item = []
     monthly_info.each do |day|
       smallest_item << day if smallest_item.size == 0
-      if day[0][1] <= smallest_item[0][1]
+      if day[1] <= smallest_item[0][1]
         smallest_item.clear
-        smallest_items << day
+        smallest_item << day
       end
     end
+    smallest_item
   end
 
   def largest_spread(monthly_info)
     largest_item = []
     monthly_info.each do |day|
       largest_item << day if largest_item.size == 0
-      if day[0][1] >= largest_item[0][1]
+      if day[1] >= largest_item[0][1]
         largest_item.clear
-        largest_items << day
+        largest_item << day
       end
     end
+    largest_item
   end
 end
